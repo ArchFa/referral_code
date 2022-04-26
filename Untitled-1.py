@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 from collections import Counter
 from PIL import Image
+import numpy as np
 
 # %%
 # im = Image.open("./logo_ugry.png")
@@ -30,7 +31,7 @@ if uploaded_file is not None:
      # удаление пропусков, которые появляются из за особенностей выгрузки
      df = df.dropna()
      file_container = st.expander("Check your uploaded .csv")   
-     st.write(df)
+     st.write(df.head(5))
 else:
     st.info(
         f"""
@@ -65,6 +66,28 @@ display_all_task = st.checkbox(
 # %%
 if display_all_task:
     st.write(df['refferal_code'].value_counts())
+
+# %%
+df['diff'] = df.groupby('refferal_code')['created_at'].diff(1)
+df['diff'] = df['diff'] / np.timedelta64(1, 'm')
+
+# %%
+df.head(20)
+
+# %%
+df = df.dropna()
+
+# %%
+col_multi, col_em = st.columns([2, 3])
+
+selected_sn = col_multi.selectbox(
+    "Выберите конкурента",
+    options=df['refferal_code'].unique().tolist(),
+    index=0,
+)
+
+# %%
+
 
 # %%
 
