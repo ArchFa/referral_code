@@ -27,7 +27,7 @@ if uploaded_file is not None:
 
      # изменение типов
      df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%d %H:%M:%S')
-     df['id'] = df['id'].astype(int)
+     df['id'] = df['id'].fillna(0).astype('int32')
      df['refferal_code'] = df['refferal_code'].str.strip()
 
 
