@@ -27,6 +27,10 @@ if uploaded_file is not None:
 
      # изменение типов
      df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%d %H:%M:%S')
+     df['id'] = df['id'].astype(int)
+     df['refferal_code'] = df['refferal_code'].str.strip()
+
+
 
      # удаление пропусков, которые появляются из за особенностей выгрузки
      df = df.dropna()
@@ -81,15 +85,34 @@ df = df.dropna()
 col_multi, col_em = st.columns([2, 3])
 
 selected_sn = col_multi.selectbox(
-    "Выберите конкурента",
+    "Выберите промокод",
     options=df['refferal_code'].unique().tolist(),
     index=0,
 )
 
 # %%
-
+def creation_day(difference_in_hours):
+    if difference_in_hours < 0.25:
+        return 'Менее 15 минут'
+    elif 0.25 <= difference_in_hours <= 0.5:
+        return 'От 15 до 30 минут'
+    elif 0.5 <= difference_in_hours <= 1:
+        return 'От 30 до 60 минут'
+    elif 1 <= difference_in_hours <= 3:
+        return 'От 1 до 3 часов'
+    elif 3 <= difference_in_hours <= 5:
+        return 'От 3 до 5 часов'
+    elif 5 <= difference_in_hours <= 10:
+        return 'От 5 до 10 часов'
+    elif 10 <= difference_in_hours <= 20:
+        return 'От 10 до 20 часов'
+    else:
+        return 'Более 20 часов'
+#MOF000['diff'].apply(creation_day).value_counts()
 
 # %%
-
+df['duration'] = df['diff'].apply(creation_day)
+df_ref_code = df[df['refferal_code']== selected_sn].duration.value_counts().to_frame()
+st.dataframe(df_ref_code)
 
 
