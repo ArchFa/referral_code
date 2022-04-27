@@ -98,6 +98,7 @@ if uploaded_file:
 
     st.markdown("### Data preview")
     st.dataframe(df.head())
+st.stop()
 
 # %%
 df.columns = ['refferal_code', 'id', 'created_at']
