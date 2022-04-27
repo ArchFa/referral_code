@@ -52,9 +52,7 @@ use_example_file = st.checkbox(
 )
 
 if use_example_file:
-    uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
-    ab_default = ["variant"]
-    result_default = ["converted"]
+    df = pd.read_csv('offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
     st.stop()
 
 # %%
