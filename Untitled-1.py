@@ -61,21 +61,18 @@ import numpy as np
 
 
 # %%
-uploaded_file = st.file_uploader("Upload CSV", type=".csv")
+st.title("Промокоды")
+st.write("Количество созданных задач для каждого просокода, время между созданием")
+uploaded_file = st.file_uploader("Выбирете файл")
+
 
 use_example_file = st.checkbox(
     "Use example file", False, help="Use in-built example file to demo the app"
 )
 
-ab_default = None
-result_default = None
 
-# If CSV is not uploaded and checkbox is filled, use values from the example file
-# and pass them down to the next if block
 if use_example_file:
     uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
-    ab_default = ["variant"]
-    result_default = ["converted"]
 
 
 if uploaded_file:
@@ -91,20 +88,27 @@ if uploaded_file:
     df['id'] = df['id'].fillna(0).astype('int32')
     df['refferal_code'] = df['refferal_code'].str.strip()
 
-
-
      # удаление пропусков, которые появляются из за особенностей выгрузки
     df = df.dropna()
 
-    st.markdown("### Data preview")
+    st.markdown("### Обзор выгрузки")
     st.dataframe(df.head())
-    st.stop()
+
+st.info(
+        f"""
+             👆 Загрузите файл с расширением csv. В файле должны стого содержаться следующие столбцы:
+             - реферальный код
+             - id задачи
+             - время создания задачи
+             """
+    )
+st.stop()
 
 # %%
-df.columns = ['refferal_code', 'id', 'created_at']
-df = df.dropna()
-df['refferal_code'] = df['refferal_code'].str.strip()
-df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%d %H:%M:%S')
+# df.columns = ['refferal_code', 'id', 'created_at']
+# df = df.dropna()
+# df['refferal_code'] = df['refferal_code'].str.strip()
+# df['created_at'] = pd.to_datetime(df['created_at'], format='%Y-%m-%d %H:%M:%S')
 
 # %%
 df = df.sort_values(by=['refferal_code', 'created_at'])
