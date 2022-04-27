@@ -42,8 +42,15 @@ if uploaded_file is not None:
      df = df.dropna()
      file_container = st.expander("Check your uploaded .csv")   
      st.write(df.head(5))
-else:
-    st.info(
+
+
+if use_example_file:
+    uploaded_file = pd.read_csv('offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
+    ab_default = ["variant"]
+    result_default = ["converted"]
+
+
+st.info(
         f"""
              👆 Загрузите файл с расширением csv. В файле должны стого содержаться следующие столбцы:
              - реферальный код
@@ -53,14 +60,8 @@ else:
     )    
 
 
-if use_example_file:
-    uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
-    ab_default = ["variant"]
-    result_default = ["converted"]
-
-
 # %%
-# df = pd.read_csv('/Users/arturfattahov/Desktop/offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
+
 
 # %%
 df.columns = ['refferal_code', 'id', 'created_at']
