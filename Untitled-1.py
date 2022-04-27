@@ -44,8 +44,9 @@ else:
              - id задачи
              - время создания задачи
              """
-    )
+    )    
 
+# %%
 use_example_file = st.checkbox(
     "Использовать пример выгрузки", False, help="Подставится старая выгрузка в отчет"
 )
@@ -54,18 +55,7 @@ if use_example_file:
     uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
     ab_default = ["variant"]
     result_default = ["converted"]
-    
     st.stop()
-
-# %%
-# use_example_file = st.checkbox(
-#     "Использовать пример выгрузки", False, help="Подставится старая выгрузка в отчет"
-# )
-
-# if use_example_file:
-#     uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
-#     ab_default = ["variant"]
-#     result_default = ["converted"]
 
 # %%
 # df = pd.read_csv('/Users/arturfattahov/Desktop/offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
