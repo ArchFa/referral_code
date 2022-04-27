@@ -102,7 +102,9 @@ st.info(
              - время создания задачи
              """
     )
-st.stop()
+
+if not uploaded_file or not use_example_file:
+        st.stop()
 
 # %%
 # df.columns = ['refferal_code', 'id', 'created_at']
