@@ -67,7 +67,7 @@ uploaded_file = st.file_uploader("Выбирете файл")
 
 
 use_example_file = st.checkbox(
-    "Use example file", False, help="Use in-built example file to demo the app"
+    "Использовать пример выгрузки", False, help="Будет использована старая выгрузка"
 )
 
 
