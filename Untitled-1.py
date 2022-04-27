@@ -16,6 +16,12 @@ st.write("Количество созданных задач для каждог
 
 uploaded_file = st.file_uploader("Выбирете файл")
 
+use_example_file = st.checkbox(
+    "Use example file", False, help="Use in-built example file to demo the app"
+)
+
+ab_default = None
+result_default = None
 
 if uploaded_file is not None:
      df = pd.read_csv(uploaded_file, sep='|')
@@ -46,14 +52,12 @@ else:
              """
     )    
 
-# %%
-use_example_file = st.checkbox(
-    "Использовать пример выгрузки", False, help="Подставится старая выгрузка в отчет"
-)
 
 if use_example_file:
-    df = pd.read_csv('offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
-    st.stop()
+    uploaded_file = "offers_referral_codes_2021_09_15__2022_03_15.csv"
+    ab_default = ["variant"]
+    result_default = ["converted"]
+
 
 # %%
 # df = pd.read_csv('/Users/arturfattahov/Desktop/offers_referral_codes_2021_09_15__2022_03_15.csv', sep='|')
